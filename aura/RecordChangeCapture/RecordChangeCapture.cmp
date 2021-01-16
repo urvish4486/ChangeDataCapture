@@ -6,15 +6,8 @@
     <aura:attribute name="autoRefresh" type="String" default="Yes" />
     <aura:attribute name="isSupported" type="Boolean" default="false" />
     
-    <!--Loading list of supported object for change events
-     - This can be configured in a custom setting or custom metadata type also
-     - however, in that case you need to make a server side call to get the data
-     - which i am trying to avoid here -->
     <ltng:require scripts="{!$Resource.SupportedObjectsForChangeEvents}" afterScriptsLoaded="{!c.checkCompatibility}" />
     
-    <!--Include EmpApiDemo child component and pass channel name to subscribe
-      ex: "/topic/AccountSpy" is my pushtopic channel name
-    once the event is fired, it will handled in handleMessage controller method -->
     <aura:if isTrue="{!v.isSupported}">
         <c:RecordChangeEventHandler channelName="{!v.channelName}" onRecordChange="{!c.handleMessage}" />
         <aura:set attribute="else">
